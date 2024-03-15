@@ -4,6 +4,23 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.library.repository.UserMapper">
 
+    <resultMap id="RoleResultMap"
+               type="com.study.library.entity.Role"
+               >
+        <id column="role_id" property="roleId" />
+        <result column="role_name" property="roleName" />
+        <result column="role_name_kor" property="roleNameKor" />
+    </resultMap>
+
+    <resultMap id="RoleRegisterResultMap"
+               type="com.study.library.entity.RoleRegister"
+               >
+        <id column="role_register_id" property="roleRegisterId" />
+        <result column="user_id" property="userId" />
+        <result column="role_id" property="roleId" />
+        <association property="role" resultMap="RoleResultMap" />
+    </resultMap>
+
     <resultMap id="UserResultMap"
                type="com.study.library.entity.User"
                >
@@ -14,19 +31,7 @@
         <result column="email" property="email" />
         <result column="create_date" property="createDate" />
         <result column="update_date" property="updateDate" />
-        <collection property="roles" javaType="list" resultMap="RoleRegisterResultMap" />
-    </resultMap>
-
-    <resultMap id="RoleRegisterResultMap"
-               type="com.study.library.entity.User"
-    >
-        <id column="user_id" property="userId" />
-        <result column="user_name" property="userName" />
-        <result column="password" property="password" />
-        <result column="name" property="name" />
-        <result column="email" property="email" />
-        <result column="create_date" property="createDate" />
-        <result column="update_date" property="updateDate" />
+        <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap" />
     </resultMap>
 
     <!-- ##################################  insert  ##################################-->
@@ -57,15 +62,21 @@
             resultType="com.study.library.entity.User"
             resultMap="UserResultMap">
         select
-            user_id,
-            user_name,
-            password,
-            name,
-            email,
-            create_date,
-            update_date
+            ut.user_id,
+            ut.user_name,
+            ut.password,
+            ut.name,
+            ut.email,
+            ut.create_date,
+            ut.update_date,
+            rrt.role_register_id,
+            rrt.role_id,
+            rt.role_name,
+            rt.role_name_kor
         from
-            user_tb
+            user_tb ut
+            left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = rrt.role_id)
         where
             user_name = #{username}
     </select>

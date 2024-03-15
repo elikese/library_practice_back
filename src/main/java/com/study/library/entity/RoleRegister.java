@@ -11,10 +11,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Role {
+public class RoleRegister {
+    private int roleRegisterId;
+    private int userId;
     private int roleId;
-    private String roleName;
-    private String roleNameKor;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    private Role role;
 }
