@@ -1,5 +1,6 @@
 package com.study.library.entity;
 
+import com.study.library.security.PrincipalUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,13 @@ public class User {
     private LocalDateTime updateDate;
 
     private List<Role> roles;
+
+    public PrincipalUser toPrincipal() {
+        return PrincipalUser.builder()
+                .userId(userId)
+                .username(userName)
+                .name(name)
+                .email(email)
+                .build();
+    }
 }

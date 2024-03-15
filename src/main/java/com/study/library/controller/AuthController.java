@@ -32,7 +32,6 @@ public class AuthController {
     @ParamPrintAspect
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody SigninReqDto reqDto) {
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(authService.signin(reqDto));
     }
 }
