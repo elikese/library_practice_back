@@ -25,11 +25,6 @@ public class AuthController {
     @ValidAspect
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupReqDto reqDto, BindingResult bindingResult) {
-        if(authService.isDuplicatedUserName(reqDto.getUsername())) {
-//            ObjectError error = new FieldError("reqDto", "username", "이미 존재하는 아이디입니다");
-//            bindingResult.addError(error);
-            throw new ValidException(Map.of("username","이미 존재하는 아이디입니다"));
-        }
         authService.signup(reqDto);
         return ResponseEntity.created(null).body(true);
     }

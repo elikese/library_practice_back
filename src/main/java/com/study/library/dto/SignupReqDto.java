@@ -10,16 +10,16 @@ import javax.validation.constraints.Pattern;
 @Data
 public class SignupReqDto {
 
-    @Pattern(regexp = "^[a-z]{1}[a-z0-9_]{3,10}+$", message = "영문 숫자 조합 4~10자리여야 합니다")
+    @Pattern(regexp = "^[A-Za-z0-9]{4,10}$", message = "영문자, 숫자포함하여 5~10자리")
     private String username;
 
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$", message = "대소문자, 숫자, 특수문자 조합으로 8~128자리여야 합니다")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*])[a-zA-Z\\d!@#$%^&*]{7,128}$", message = "영문자, 숫자, 특수문자 포함하여 8~128자리")
     private String password;
 
-    @Pattern(regexp = "^[ㄱ-ㅎ|가-힣]{2,}$", message = "한글만 입력하세요")
+    @Pattern(regexp = "^(?=.*[가-힇])^[가-힇]{1,10}$", message = "한글만 입력 할 수 있습니다")
     private String name;
 
-    @Email
+    @Email(regexp = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$", message = "이메일 형식이어야 합니다")
     @NotBlank
     private String email;
 
