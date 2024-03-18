@@ -8,11 +8,8 @@ import com.study.library.jwt.JwtProvider;
 import com.study.library.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +51,6 @@ public class AuthService {
             throw new BadCredentialsException("사용자 정보를 조회할 수 없습니다");
         }
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user.toPrincipal(),"");
-        return jwtProvider.generateToken(authentication);
+        return jwtProvider.generateToken(user);
     }
 }
