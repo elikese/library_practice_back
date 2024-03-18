@@ -14,7 +14,6 @@ public class AccountController {
 
     @GetMapping("/principal")
     public ResponseEntity<?> getPrincipal() {
-        System.out.println("get요청 들어옴");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
         return ResponseEntity.ok(principalUser);
