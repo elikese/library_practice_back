@@ -12,4 +12,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowedOrigins("*");
     }
+
 }
