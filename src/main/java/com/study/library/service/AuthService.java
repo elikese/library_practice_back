@@ -35,7 +35,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(reqDto.getPassword()));
 
         successCount += userMapper.saveUser(user);
-        successCount += userMapper.saveRole(user.getUserId());
+        successCount += userMapper.saveRole(user.getUserId(), 1);
 
         if(successCount < 2) {
             throw new SaveException();
