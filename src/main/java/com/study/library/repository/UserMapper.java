@@ -14,5 +14,6 @@ public interface UserMapper {
 
     int saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
+    User findUserByOAuth2name(String oAuth2name);
 
 }
