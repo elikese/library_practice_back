@@ -15,6 +15,7 @@ public class OAuth2PrincipalUserService implements OAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
+
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
@@ -31,6 +32,6 @@ public class OAuth2PrincipalUserService implements OAuth2UserService {
             case "Kakao" :
                 break;
         }
-        return new DefaultOAuth2User(oAuth2User.getAuthorities(),newAttributes,"id");
+        return new DefaultOAuth2User(oAuth2User.getAuthorities(), newAttributes,"id");
     }
 }

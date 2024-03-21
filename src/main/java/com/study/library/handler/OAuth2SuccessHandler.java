@@ -1,7 +1,9 @@
 package com.study.library.handler;
 
 import com.study.library.entity.User;
+import com.study.library.jwt.JwtProvider;
 import com.study.library.repository.UserMapper;
+import com.study.library.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,9 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private String clientAddress;
 
     @Autowired
+    private JwtProvider jwtProvider;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Override
@@ -28,7 +33,6 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String name = authentication.getName();
         User user = userMapper.findUserByOAuth2name(name);
 
-        // OAuth2 로그인을 통해 회원가입을 진행한 기록이 있는 상태 (상태1)
         // OAuth2 기존회원의 Oauth2 동기화 상태 (상태2)
         if(user == null) {
             DefaultOAuth2User oAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
@@ -36,6 +40,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             response.sendRedirect("http://" + clientAddress + "/auth/oauth2?name=" + name + "&provider=" + providerName);
             return;
         }
+
+        // OAuth2 로그인을 통해 회원가입을 진행한 기록이 있는 상태 (상태1)
+        String accessToken = jwtProvider.generateToken(user);
+        response.sendRedirect("http://" + clientAddress + "/auth/oauth2/signin?accessToken=" + accessToken);
 
         // OAuth2 로그인을 통해서 회원가입이 되어있지 않은 상태 (상태3)
     }

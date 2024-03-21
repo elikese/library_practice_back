@@ -2,6 +2,7 @@ package com.study.library.controller;
 
 import com.study.library.aop.annotation.ParamPrintAspect;
 import com.study.library.aop.annotation.ValidAspect;
+import com.study.library.dto.OAuth2SignupReqDto;
 import com.study.library.dto.SigninReqDto;
 import com.study.library.dto.SignupReqDto;
 import com.study.library.service.AuthService;
@@ -33,5 +34,12 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody SigninReqDto reqDto) {
         return ResponseEntity.ok(authService.signin(reqDto));
+    }
+
+    @ValidAspect
+    @PostMapping("/oauth2/signup")
+    public ResponseEntity<?> oAuth2Signup(@Valid @RequestBody OAuth2SignupReqDto reqDto, BindingResult bindingResult) {
+        authService.oAuth2signup(reqDto);
+        return ResponseEntity.created(null).body(true);
     }
 }

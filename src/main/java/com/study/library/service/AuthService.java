@@ -1,5 +1,6 @@
 package com.study.library.service;
 
+import com.study.library.dto.OAuth2SignupReqDto;
 import com.study.library.dto.SigninReqDto;
 import com.study.library.dto.SignupReqDto;
 import com.study.library.entity.User;
@@ -38,6 +39,21 @@ public class AuthService {
         successCount += userMapper.saveRole(user.getUserId(), 1);
 
         if(successCount < 2) {
+            throw new SaveException();
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void oAuth2signup(OAuth2SignupReqDto reqDto) {
+        int successCount = 0;
+        User user = reqDto.toEntity();
+        user.setPassword(passwordEncoder.encode(reqDto.getPassword()));
+
+        successCount += userMapper.saveUser(user);
+        successCount += userMapper.saveRole(user.getUserId(), 1);
+        successCount += userMapper.saveOAuth2(reqDto.toOAuth2Entity(user.getUserId()));
+
+        if(successCount < 3) {
             throw new SaveException();
         }
     }

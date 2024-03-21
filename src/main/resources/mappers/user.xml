@@ -63,6 +63,15 @@
             (0, #{userId}, #{roleId}, now(), now())
     </insert>
 
+    <insert id="saveOAuth2"
+            parameterType="com.study.library.entity.OAuth2"
+    >
+        insert into
+            oauth2_tb
+        values
+            (0, #{oauth2Name}, #{userId}, #{providerName}, now(), now())
+    </insert>
+
     <!-- ##################################  select  ##################################-->
 
     <select id="findUserByUserName"
