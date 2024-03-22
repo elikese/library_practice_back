@@ -42,7 +42,7 @@ public class OAuth2SignupReqDto {
 
     public OAuth2 toOAuth2Entity(int userId) {
         return OAuth2.builder()
-                .oAuth2Name(oauth2Name)
+                .oauth2Name(oauth2Name)
                 .userId(userId)
                 .providerName(providerName)
                 .build();

@@ -22,8 +22,8 @@
     </resultMap>
 
     <resultMap id="OAuth2ResultMap" type="com.study.library.entity.OAuth2">
-        <id column="oauth2_id" property="oAuth2Id" />
-        <result column="oauth2_name" property="oAuth2Name" />
+        <id column="oauth2_id" property="oauth2Id" />
+        <result column="oauth2_name" property="oauth2Name" />
         <result column="user_id" property="userId" />
         <result column="provider_name" property="providerName" />
     </resultMap>

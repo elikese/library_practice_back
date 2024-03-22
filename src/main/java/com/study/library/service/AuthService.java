@@ -3,6 +3,8 @@ package com.study.library.service;
 import com.study.library.dto.OAuth2SignupReqDto;
 import com.study.library.dto.SigninReqDto;
 import com.study.library.dto.SignupReqDto;
+import com.study.library.entity.OAuth2;
+import com.study.library.entity.OAuth2MergeReqDto;
 import com.study.library.entity.User;
 import com.study.library.exception.SaveException;
 import com.study.library.jwt.JwtProvider;
@@ -43,6 +45,18 @@ public class AuthService {
         }
     }
 
+    public String signin(SigninReqDto reqDto) {
+        User user = userMapper.findUserByUserName(reqDto.getUsername());
+        if(user == null) {
+            throw new UsernameNotFoundException("사용자 정보를 조회할 수 없습니다");
+        }
+        if (!passwordEncoder.matches(reqDto.getPassword(), user.getPassword())) {
+            throw new BadCredentialsException("사용자 정보를 조회할 수 없습니다");
+        }
+
+        return jwtProvider.generateToken(user);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void oAuth2signup(OAuth2SignupReqDto reqDto) {
         int successCount = 0;
@@ -58,7 +72,8 @@ public class AuthService {
         }
     }
 
-    public String signin(SigninReqDto reqDto) {
+    @Transactional(rollbackFor = Exception.class)
+    public void oAuth2Merge(OAuth2MergeReqDto reqDto) {
         User user = userMapper.findUserByUserName(reqDto.getUsername());
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 조회할 수 없습니다");
@@ -66,7 +81,12 @@ public class AuthService {
         if (!passwordEncoder.matches(reqDto.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("사용자 정보를 조회할 수 없습니다");
         }
-
-        return jwtProvider.generateToken(user);
+        OAuth2 oAuth2 = OAuth2.builder()
+                .oauth2Name(reqDto.getOauth2Name())
+                .providerName(reqDto.getProviderName())
+                .userId(user.getUserId())
+                .build();
+        System.out.println(oAuth2);
+        userMapper.saveOAuth2(oAuth2);
     }
 }

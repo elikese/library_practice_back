@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class OAuth2 {
-    private int oAuth2Id;
-    private String oAuth2Name;
+    private int oauth2Id;
+    private String oauth2Name;
     private int userId;
     private String providerName;
     private LocalDateTime createDate;
