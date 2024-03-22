@@ -1,7 +1,6 @@
 package com.study.library.security.filter;
 
 import org.springframework.stereotype.Component;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,7 @@ public class PermitAllFilter extends GenericFilter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        List<String> antMatchers = List.of("/login", "/error", "/server", "/auth", "oauth2", "/mail/authenticate");
+        List<String> antMatchers = List.of("/login", "/error", "/server", "/auth", "/oauth2", "/mail/authenticate");
 
         String uri = request.getRequestURI();
         boolean isPermitAll = false;
