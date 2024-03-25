@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.library.repository.OptionMapper">
+
+    <!-- ##################################  RESULT-MAP  ##################################-->
+    <resultMap id="CategoryResultMap" type="com.study.library.entity.Category">
+        <id column="category_id" property="categoryId" />
+        <result column="category_name" property="categoryName" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+    <resultMap id="BookTypeResultMap" type="com.study.library.entity.BookType">
+        <id column="book_type_id" property="bookTypeId" />
+        <result column="book_type_name" property="bookTypeName" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <!-- ##################################  SELECT  ##################################-->
+    <select id="getAllBookTypes"
+        resultMap="BookTypeResultMap"
+        resultType="list"
+    >
+        select
+            book_type_id,
+            book_type_name,
+            create_date,
+            update_date
+        from
+            book_type_tb
+    </select>
+    <select id="getAllCategories"
+        resultMap="CategoryResultMap"
+        resultType="list"
+    >
+        select
+            category_id,
+            category_name,
+            create_date,
+            update_date
+        from
+            category_tb
+    </select>
+
+</mapper>
