@@ -9,5 +9,4 @@ public class SearchBookReqDto {
     private int categoryId;
     private int searchTypeId;
     private String searchText;
-
 }
