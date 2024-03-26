@@ -1,5 +1,6 @@
 package com.study.library.entity;
 
+import com.study.library.dto.SearchBookResDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,21 @@ public class Book {
     private String coverImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private BookType bookType;
+    private Category category;
+
+    public SearchBookResDto toSearchBookResDto() {
+        return SearchBookResDto.builder()
+                .bookId(bookId)
+                .bookName(bookName)
+                .authorName(authorName)
+                .publisherName(publisherName)
+                .isbn(isbn)
+                .bookTypeId(bookTypeId)
+                .bookTypeName(bookType.getBookTypeName())
+                .categoryId(categoryId)
+                .categoryName(category.getCategoryName())
+                .coverImgUrl(coverImgUrl)
+                .build();
+    }
 }

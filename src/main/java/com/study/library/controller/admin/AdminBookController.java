@@ -30,7 +30,7 @@ public class AdminBookController {
     @GetMapping("books")
     @ParamPrintAspect
     public ResponseEntity<?> searchBook(SearchBookReqDto reqDto) {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(bookService.searchBooks(reqDto));
     }
 
 }
