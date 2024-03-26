@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.library.repository.BookMapper">
+
+    <!-- ##################################  RESULT-MAP  ##################################-->
+    <resultMap id="CategoryResultMap" type="com.study.library.entity.Category">
+        <id column="category_id" property="categoryId" />
+        <result column="category_name" property="categoryName" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+    <resultMap id="BookTypeResultMap" type="com.study.library.entity.BookType">
+        <id column="book_type_id" property="bookTypeId" />
+        <result column="book_type_name" property="bookTypeName" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+    <resultMap id="BookResultMap" type="com.study.library.entity.Book">
+        <id column="book_id" property="bookId" />
+        <result column="book_name" property="bookName" />
+        <result column="author_name" property="authorName" />
+        <result column="publisher_name" property="publisherName" />
+        <result column="isbn" property="isbn" />
+        <result column="book_type_id" property="bookTypeId" />
+        <result column="category_id" property="categoryId" />
+        <result column="cover_img_url" property="coverImgUrl" />
+
+    </resultMap>
+    <!-- ##################################  INSERT  ##################################-->
+    <insert
+            id="saveBook"
+            parameterType="com.study.library.entity.Book"
+        >
+        insert
+            into book_tb
+        values(
+            0,
+            #{bookName},
+            #{authorName},
+            #{publisherName},
+            #{isbn},
+            #{bookTypeId},
+            #{categoryId},
+            #{coverImgUrl},
+            now(),
+            now()
+        )
+    </insert>
+
+</mapper>
