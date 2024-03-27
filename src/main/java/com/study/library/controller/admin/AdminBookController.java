@@ -1,6 +1,5 @@
 package com.study.library.controller.admin;
 
-import com.study.library.aop.annotation.ParamPrintAspect;
 import com.study.library.aop.annotation.ValidAspect;
 import com.study.library.dto.RegisterBookReqDto;
 import com.study.library.dto.SearchBookReqDto;
@@ -32,7 +31,7 @@ public class AdminBookController {
     }
 
     @GetMapping("/books/count")
-    public ResponseEntity<?> getTotalCount() {
-        return ResponseEntity.ok(null);
+    public ResponseEntity<?> getCount(SearchBookReqDto reqDto) {
+        return ResponseEntity.ok(bookService.getBookCount(reqDto));
     }
 }

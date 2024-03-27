@@ -1,6 +1,7 @@
 package com.study.library.service;
 
 import com.study.library.dto.RegisterBookReqDto;
+import com.study.library.dto.SearchBookCountResDto;
 import com.study.library.dto.SearchBookReqDto;
 import com.study.library.dto.SearchBookResDto;
 import com.study.library.entity.Book;
@@ -39,4 +40,22 @@ public class BookService {
         );
         return books.stream().map(Book::toSearchBookResDto).collect(Collectors.toList());
     }
+
+    public SearchBookCountResDto getBookCount(SearchBookReqDto reqDto) {
+        int bookCount = bookMapper.getBookCount(
+                reqDto.getBookTypeId(),
+                reqDto.getCategoryId(),
+                reqDto.getSearchTypeId(),
+                reqDto.getSearchText()
+        );
+
+        int endPageNumber = (int) Math.ceil(((double) bookCount) / reqDto.getCount());
+
+        return SearchBookCountResDto.builder()
+                .totalCount(bookCount)
+                .endPageNumber(endPageNumber)
+                .build();
+    }
 }
+
+

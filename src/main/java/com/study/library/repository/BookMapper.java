@@ -17,4 +17,11 @@ public interface BookMapper {
             @Param("searchTypeId") int searchTypeId,
             @Param("searchText") String searchText
             );
+
+    int getBookCount(
+            @Param("bookTypeId") int bookTypeId,
+            @Param("categoryId") int categoryId,
+            @Param("searchTypeId") int searchTypeId,
+            @Param("searchText") String searchText
+            );
 }
