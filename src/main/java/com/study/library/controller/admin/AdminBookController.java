@@ -20,7 +20,6 @@ public class AdminBookController {
     private BookService bookService;
 
     @PostMapping("/book")
-    @ParamPrintAspect
     @ValidAspect
     public ResponseEntity<?> saveBook(@Valid @RequestBody RegisterBookReqDto reqDto, BindingResult bindingResult) {
         bookService.saveBook(reqDto);
@@ -28,9 +27,12 @@ public class AdminBookController {
     }
 
     @GetMapping("books")
-    @ParamPrintAspect
     public ResponseEntity<?> searchBook(SearchBookReqDto reqDto) {
         return ResponseEntity.ok(bookService.searchBooks(reqDto));
     }
 
+    @GetMapping("/books/count")
+    public ResponseEntity<?> getTotalCount() {
+        return ResponseEntity.ok(null);
+    }
 }
