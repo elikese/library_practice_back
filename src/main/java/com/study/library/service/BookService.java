@@ -1,9 +1,6 @@
 package com.study.library.service;
 
-import com.study.library.dto.RegisterBookReqDto;
-import com.study.library.dto.SearchBookCountResDto;
-import com.study.library.dto.SearchBookReqDto;
-import com.study.library.dto.SearchBookResDto;
+import com.study.library.dto.*;
 import com.study.library.entity.Book;
 import com.study.library.exception.SaveException;
 import com.study.library.repository.BookMapper;
@@ -56,6 +53,15 @@ public class BookService {
                 .endPageNumber(endPageNumber)
                 .build();
     }
-}
 
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteBooks(List<Integer> bookIds) {
+        bookMapper.deleteBooksByBookIds(bookIds);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateBook(UpdateBookReqDto reqDto) {
+        bookMapper.updateBookByBookId(reqDto.toEntity());
+    }
+}
 
